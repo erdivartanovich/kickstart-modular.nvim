@@ -31,6 +31,45 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- custom c-d c-u motion
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- always center search highlight cursor
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Better multple lines movement
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Better lines join
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- Better yanking
+vim.keymap.set('n', 'y', '"+y')
+vim.keymap.set('v', 'y', '"+y')
+vim.keymap.set('n', 'Y', '"+y')
+
+-- Better paste
+vim.keymap.set('x', '<leader>p', '"_dP')
+vim.keymap.set('v', 'p', 'P')
+
+-- Quick SED
+vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], { desc = 'SED' })
+
+-- Quick :G
+vim.keymap.set('n', '<leader>G', [[:g/<C-r><C-w>/]], { desc = 'Global EX' })
+vim.keymap.set('n', '<leader>!', [[:!g/<C-r><C-w>/]], { desc = '!Global EX' })
+
+-- Buffer
+vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true })
+vim.keymap.set('n', '<S-Tab>', ':bprev<CR>', { silent = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -42,6 +81,21 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- transparent bg
+local function augroup(name)
+  return vim.api.nvim_create_augroup('kickstart_' .. name, { clear = true })
+end
+vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
+  group = augroup 'set_transparent_bg',
+  callback = function()
+    vim.cmd 'highlight Normal guibg=none'
+    vim.cmd 'highlight NonText guibg=none'
+    vim.cmd 'highlight Normal ctermbg=none'
+    vim.cmd 'highlight NonText ctermbg=none'
+    vim.cmd 'highlight NormalFloat guibg=none'
   end,
 })
 
