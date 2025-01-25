@@ -10,17 +10,11 @@ return {
       end,
       desc = 'File Explorer',
     },
-    {
-      '<leader>e',
-      function()
-        require('oil').toggle_float()
-      end,
-      desc = 'File Explorer',
-    },
   },
   opts = function()
-    -- vim.cmd [[cabbrev Ex Oil]]
-    -- vim.cmd [[cabbrev Explore Oil]]
+    -- Override EX command:
+    -- -- vim.cmd [[cabbrev Ex Oil]]
+    -- -- vim.cmd [[cabbrev Explore Oil]]
     return {
       default_file_explorer = false,
       keymaps = {
@@ -40,6 +34,17 @@ return {
         ['gx'] = 'actions.open_external',
         ['g.'] = 'actions.toggle_hidden',
         ['g\\'] = 'actions.toggle_trash',
+        ['gd'] = {
+          desc = 'Toggle file detail view',
+          callback = function()
+            detail = not detail
+            if detail then
+              require('oil').set_columns { 'icon', 'permissions', 'size', 'mtime' }
+            else
+              require('oil').set_columns { 'icon' }
+            end
+          end,
+        },
       },
       float = {
         -- Padding around the floating window
@@ -55,6 +60,18 @@ return {
         override = function(conf)
           return conf
         end,
+      },
+      preview_win = {
+        -- Whether the preview window is automatically updated when the cursor is moved
+        update_on_cursor_moved = true,
+        -- How to open the preview window "load"|"scratch"|"fast_scratch"
+        preview_method = 'fast_scratch',
+        -- A function that returns true to disable preview on a file e.g. to avoid lag
+        disable_preview = function(filename)
+          return false
+        end,
+        -- Window-local options to use for preview window buffers
+        win_options = {},
       },
       -- Configuration for the floating keymaps help window
       keymaps_help = {
