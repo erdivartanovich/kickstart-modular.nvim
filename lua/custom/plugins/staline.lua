@@ -31,8 +31,8 @@ return {
       defaults = {
         bg = '#1C1C2F',
         cool_symbol = ' ',
-        left_separator = '',
-        right_separator = '',
+        -- left_separator = '',
+        -- right_separator = '',
         -- line_column = "%l:%c [%L]",
         true_colors = true,
         line_column = '[%l:%c] 並%p%% ',
