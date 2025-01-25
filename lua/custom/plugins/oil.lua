@@ -1,51 +1,52 @@
 return {
-  "stevearc/oil.nvim",
+  'stevearc/oil.nvim',
+  enabled = true,
   lazy = false,
   keys = {
     {
-      "-",
+      '-',
       function()
-        require("oil").toggle_float()
+        require('oil').toggle_float()
       end,
-      desc = "File Explorer",
+      desc = 'File Explorer',
     },
     {
-      "<leader>e",
+      '<leader>e',
       function()
-        require("oil").toggle_float()
+        require('oil').toggle_float()
       end,
-      desc = "File Explorer",
+      desc = 'File Explorer',
     },
   },
   opts = function()
-    vim.cmd([[cabbrev Ex Oil]])
-    vim.cmd([[cabbrev Explore Oil]])
+    -- vim.cmd [[cabbrev Ex Oil]]
+    -- vim.cmd [[cabbrev Explore Oil]]
     return {
-      default_file_explorer = true,
+      default_file_explorer = false,
       keymaps = {
-        ["g?"] = "actions.show_help",
-        ["<CR>"] = "actions.select",
-        ["<C-\\>"] = "actions.select_split",
-        ["<C-enter>"] = "actions.select_vsplit",
-        ["<C-t>"] = "actions.select_tab",
-        ["<C-p>"] = "actions.preview",
-        ["q"] = "actions.close",
-        ["<C-l>"] = "actions.refresh",
-        ["-"] = "actions.parent",
-        ["_"] = "actions.open_cwd",
-        ["`"] = "actions.cd",
-        ["~"] = "actions.tcd",
-        ["gs"] = "actions.change_sort",
-        ["gx"] = "actions.open_external",
-        ["g."] = "actions.toggle_hidden",
-        ["g\\"] = "actions.toggle_trash",
+        ['g?'] = 'actions.show_help',
+        ['<CR>'] = 'actions.select',
+        ['<C-\\>'] = 'actions.select_split',
+        ['<C-enter>'] = 'actions.select_vsplit',
+        ['<C-t>'] = 'actions.select_tab',
+        ['<C-p>'] = 'actions.preview',
+        ['q'] = 'actions.close',
+        ['<C-l>'] = 'actions.refresh',
+        ['-'] = 'actions.parent',
+        ['_'] = 'actions.open_cwd',
+        ['`'] = 'actions.cd',
+        ['~'] = 'actions.tcd',
+        ['gs'] = 'actions.change_sort',
+        ['gx'] = 'actions.open_external',
+        ['g.'] = 'actions.toggle_hidden',
+        ['g\\'] = 'actions.toggle_trash',
       },
       float = {
         -- Padding around the floating window
         padding = 0,
         max_width = 0,
         max_height = 0,
-        border = "rounded",
+        border = 'rounded',
         win_options = {
           winblend = 0,
         },
@@ -57,7 +58,7 @@ return {
       },
       -- Configuration for the floating keymaps help window
       keymaps_help = {
-        border = "rounded",
+        border = 'rounded',
       },
       view_options = {
         show_hidden = true,
@@ -65,5 +66,5 @@ return {
     }
   end,
   -- Optional dependencies
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
 }

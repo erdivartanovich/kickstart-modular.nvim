@@ -3,8 +3,6 @@
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
-vim.opt.path:append '**'
-
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -46,7 +44,7 @@ vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.opt.splitbelow = false
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
@@ -70,7 +68,52 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+-- Open Help in single window
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'help',
+  command = 'wincmd L',
+})
+
 -- Custom Plugin Options
 vim.g.astro_typescript = 'enable'
+
+-- Custom Find using fd
+vim.api.nvim_create_user_command('Fd', function(opts)
+  -- Use fd to search for files, respecting .gitignore and excluding node_modules
+  local results = vim.fn.systemlist(string.format("fd --hidden --type f --exclude 'node_modules' --ignore-case '%s'", opts.args))
+  if #results == 0 then
+    print 'No files found.'
+    return
+  end
+  -- Open the first result in the current buffer
+  vim.cmd('edit ' .. results[1])
+  -- Optionally, show a menu to select a file if multiple results are found
+  if #results > 1 then
+    vim.ui.select(results, { prompt = 'Select file to open:' }, function(choice)
+      if choice then
+        vim.cmd('edit ' .. choice)
+      end
+    end)
+  end
+end, {
+  nargs = '+', -- Requires arguments (the search pattern)
+  desc = 'Find files using fd, respecting .gitignore and excluding node_modules',
+})
+vim.cmd [[cabbrev fd Fd]]
+
+vim.opt.path:append '**'
+vim.opt.wildmenu = true
+vim.opt.wildmode = 'full'
+vim.opt.wildignorecase = true
+vim.opt.wildignore = {
+  '*.o',
+  '*.obj',
+  '*.tmp',
+  'node_modules/**',
+  'dist/**',
+  '.git/**',
+  '*.log',
+  '*.pyc',
+}
 
 -- vim: ts=2 sts=2 sw=2 et
