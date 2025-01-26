@@ -70,6 +70,15 @@ vim.keymap.set('n', '<leader>!', [[:!g/<C-r><C-w>/]], { desc = '!Global EX' })
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true })
 vim.keymap.set('n', '<S-Tab>', ':bprev<CR>', { silent = true })
 
+-- NetRw Toggle
+vim.api.nvim_set_keymap('i', '<C-->', '<Esc>:Lex<CR>:vertical resize 70<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-->', '<Esc>:Lex<CR>:vertical resize 70<CR>', { noremap = true, silent = true })
+
+-- Close NetRw on Q press
+vim.cmd [[
+  autocmd FileType netrw nnoremap <buffer> q :bd<CR>
+]]
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

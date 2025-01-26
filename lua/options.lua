@@ -7,13 +7,16 @@
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+
+-- Hide Cmdline
+vim.opt.cmdheight = 0
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -101,9 +104,8 @@ end, {
 })
 vim.cmd [[cabbrev fd Fd]]
 
+-- Find files config
 vim.opt.path:append '**'
-vim.opt.wildmenu = true
-vim.opt.wildmode = 'full'
 vim.opt.wildignorecase = true
 vim.opt.wildignore = {
   '*.o',
@@ -115,5 +117,10 @@ vim.opt.wildignore = {
   '*.log',
   '*.pyc',
 }
+
+-- Netrw
+vim.cmd [[cabbrev lex Lex]]
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 
 -- vim: ts=2 sts=2 sw=2 et
