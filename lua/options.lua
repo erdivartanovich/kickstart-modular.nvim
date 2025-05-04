@@ -77,9 +77,6 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'wincmd L',
 })
 
--- Custom Plugin Options
-vim.g.astro_typescript = 'enable'
-
 -- Custom Find using fd
 vim.api.nvim_create_user_command('Fd', function(opts)
   -- Use fd to search for files, respecting .gitignore and excluding node_modules
