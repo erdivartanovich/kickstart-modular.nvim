@@ -1,6 +1,6 @@
 return {
   'erdivartanovich/staline.nvim',
-  enabled = true,
+  enabled = false,
   opts = function()
     local pywal_core = require 'pywal.core'
     local colors = pywal_core.get_colors()
@@ -29,7 +29,7 @@ return {
       },
 
       defaults = {
-        bg = '#1C1C2F',
+        bg = colors.color0,
         cool_symbol = ' ',
         -- left_separator = '',
         -- right_separator = '',

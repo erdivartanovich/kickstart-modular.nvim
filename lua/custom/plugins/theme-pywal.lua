@@ -4,14 +4,15 @@ return {
     'erdivartanovich/pywal.nvim',
     priority = 1000,
     name = 'pywal',
+    enabled = false,
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'pywal'
+      -- vim.cmd.colorscheme 'pywal'
 
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
 }
